@@ -1,10 +1,16 @@
 "use client";
 
-import { ChevronsLeft, MenuIcon, PlusCircle, Search, Settings } from "lucide-react";
+import {
+  ChevronsLeft,
+  MenuIcon,
+  PlusCircle,
+  Search,
+  Settings,
+} from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useFetch, useMediaQuery } from "usehooks-ts";
-import { useQuery } from "convex/react";
+// import { useQuery } from "convex/react";
 import { useMutation } from "convex/react";
 
 import { cn } from "@/lib/utils";
@@ -12,12 +18,13 @@ import { api } from "@/convex/_generated/api";
 
 import { UserItem } from "./User-Item";
 import { Item } from "./item";
+import { DocumentList } from "./document-list";
 import { toast } from "sonner";
 
 export const Navigation = () => {
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const documents = useQuery(api.documents.get);
+  // const documents = useQuery(api.documents.get);
   const create = useMutation(api.documents.create);
 
   const isResizingRef = useRef(false);
@@ -134,15 +141,11 @@ export const Navigation = () => {
         <div>
           <UserItem />
           <Item label="search" icon={Search} isSearch onClick={() => {}} />
-          <Item label="setting" icon={Settings}  onClick={() => {}} />  
+          <Item label="setting" icon={Settings} onClick={() => {}} />
           <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
         <div className="mt-4">
-          <p>
-            {documents?.map((document) => (
-              <p key={document.title}>{document.title}</p>
-            ))}
-          </p>
+          <DocumentList />
         </div>
         <div
           onMouseDown={() => {
