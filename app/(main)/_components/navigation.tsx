@@ -29,7 +29,11 @@ import {
   PopoverContent,
 } from "@/components/ui/popover";
 
+import { useSearch } from "@/hooks/use-search";
+
 export const Navigation = () => {
+
+  const search = useSearch();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
   // const documents = useQuery(api.documents.get);
@@ -148,7 +152,7 @@ export const Navigation = () => {
         </div>
         <div>
           <UserItem />
-          <Item label="search" icon={Search} isSearch onClick={() => {}} />
+          <Item label="search" icon={Search} isSearch onClick={search.onOpen} />
           <Item label="setting" icon={Settings} onClick={() => {}} />
           <Item onClick={handleCreate} label="New Page" icon={PlusCircle} />
         </div>
