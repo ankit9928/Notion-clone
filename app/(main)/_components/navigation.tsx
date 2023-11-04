@@ -9,7 +9,7 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { ElementRef, useEffect, useRef, useState } from "react";
 import { useFetch, useMediaQuery } from "usehooks-ts";
 // import { useQuery } from "convex/react";
@@ -21,6 +21,7 @@ import { api } from "@/convex/_generated/api";
 import { UserItem } from "./User-Item";
 import { Item } from "./item";
 import { DocumentList } from "./document-list";
+import { Navbar } from "../_components/navbar";
 import { TrashBox } from "./trash-box";
 import { toast } from "sonner";
 import {
@@ -37,6 +38,8 @@ export const Navigation = () => {
   const settings = useSettings();
   const pathname = usePathname();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const params = useParams();
+
   // const documents = useQuery(api.documents.get);
   const create = useMutation(api.documents.create);
 
@@ -188,15 +191,19 @@ export const Navigation = () => {
           isMobile && "left-0 w-full"
         )}
       >
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role="button"
-              className="h-6 w-6 text-muted-foreground"
-            />
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="h-6 w-6 text-muted-foreground"
+              />
+            )}
+          </nav>
+        )}
       </div>
     </>
   );
