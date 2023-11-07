@@ -1,13 +1,13 @@
 "use-client";
 
-import { useQuery } from "convex/react";
 import { useParams } from "next/navigation";
-import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
 import { MenuIcon } from "lucide-react";
 import { Title } from "./title";
 import { Banner } from "./banner";
 import { Menu } from "./menu";
+import { api } from "@/convex/_generated/api";
+import { useQuery } from "convex/react";
 
 interface NavbarProps {
   isCollapsed: boolean;
